@@ -1,0 +1,36 @@
+<div class="flex justify-between items-center px-12">
+    <div class="w-[25%]">
+        <img src="/images/nike.png" alt="Nike logo" class="h-16 w-16">
+    </div>
+
+    <nav>
+        <ul class="flex items-center justify-center gap-6 font-semibold text-md"
+            cdkMenu>
+            <li><a routerLink="/">Home</a></li>
+            <li><a routerLink="/products">Productos</a></li>
+            <li><a routerLink="/admin">Admin</a></li>
+        </ul>
+    </nav>
+
+    <div class="flex justify-end gap-4 w-[25%]">
+        <div
+            class="flex items-center gap-2 bg-gray-100 rounded-full hover:bg-gray-200 w-[190px]">
+            <img src="/images/search.png" alt="Search icon"
+                class="w-9 h-9 rounded-full p-2 bg-gray-100 hover:bg-gray-300 cursor-pointer">
+            <input type="search" [formControl]="searchControl"
+                placeholder="Buscar"
+                class="font-bold max-w-[130px] border-none outline-none bg-transparent">
+        </div>
+        <div class="flex gap-2">
+            <div
+                class="flex items-center rounded-full p-2 hover:bg-gray-200 cursor-pointer">
+                <img src="/images/heart.png" alt="Favorites" class="w-5 h-5">
+            </div>
+            <div
+                class="flex items-center rounded-full p-2 hover:bg-gray-200 cursor-pointer">
+                <img src="/images/shopping-bag.png" alt="Shopping bag"
+                    class="w-5 h-5">
+            </div>
+        </div>
+    </div>
+</div>

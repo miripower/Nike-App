@@ -1,0 +1,29 @@
+<img src="/images/banner.jpg" alt="" class="w-full">
+<div class="flex flex-col gap-6 justify-center items-center py-12">
+    <p class="text-md font-normal">Adéntrate en el corazón de Nápoles con Nike
+        Field General, un cláscio total y el lienzo perfecto para lucir tu
+        estilo personal.</p>
+    <a class="bg-black text-white py-2 px-4 rounded-full font-semibold cursor-pointer hover:bg-gray-500" routerLink="products">Descubrir la colección</a>
+</div>
+
+
+<div *ngIf="firstThreeProducts.length > 0" class="max-w-[80%] m-auto py-8">
+    <div class="flex justify-between items-center">
+        <h2 class="text-2xl mb-6">Novedades de la semana</h2>
+        <p routerLink="products" class="cursor-pointer hover:text-gray-700 font-medium">Descubrir</p>
+    </div>  
+    <div class="flex justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div *ngFor="let product of firstThreeProducts" class="overflow-hidden cursor-pointer">
+                <img [src]="product.image" [alt]="product.name" class="w-100 h-82 object-cover">
+                <div class="py-2">
+                    <h3 class="text-xl font-semibold text-gray-800">{{product.name}}</h3>
+                    <span class="text-md text-gray-500">{{ product.productType}}</span>
+                    <p class="text-gray-500 text-md mb-2">{{ product.description }}</p>
+                    <span class="text-lg font-bold">{{ product.price.toFixed(2) }} €</span>
+                    <p *ngIf="product.onSale" class="text-green-700 font-bold">En Oferta</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
