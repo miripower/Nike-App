@@ -6,16 +6,19 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   firstThreeProducts: Product[] = [];
 
-  constructor(private productService: ProductservicesService) {}
+  constructor(private ProductservicesService: ProductservicesService) {}
 
   ngOnInit(): void {
-    this.firstThreeProducts = this.productService.getFirstThreeProducts();
+    this.ProductservicesService.getFirstThreeProducts().subscribe(products => {
+      this.firstThreeProducts = products;
+    });
   }
 }
