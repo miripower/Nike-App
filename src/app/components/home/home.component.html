@@ -14,7 +14,7 @@
     <div class="flex justify-center">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div *ngFor="let product of firstThreeProducts" class="overflow-hidden cursor-pointer">
-                <img [src]="product.image" [alt]="product.name" class="w-100 h-82 object-cover">
+                <img [src]="product.image" [alt]="product.name" class="w-full h-92 object-cover">
                 <div class="py-2">
                     <h3 class="text-xl font-semibold text-gray-800">{{product.name}}</h3>
                     <span class="text-md text-gray-500">{{ product.productType}}</span>

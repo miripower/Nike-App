@@ -19,5 +19,5 @@ export class ProductsComponent {
     this.products$ = this.ProductservicesService.getProducts()
   }
 
-  ngOnInit(): void {}
+ngOnInit(): void {}
 }
