@@ -4,7 +4,6 @@ import { ProductservicesService } from '../../services/productservices.service';
 import { Product } from '../../interfaces/product.interface';
 import { Observable } from 'rxjs';
 
-
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -13,11 +12,9 @@ import { Observable } from 'rxjs';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-  products$: Observable<Product[]>
+  products: Observable<Product[]>;
 
-  constructor(private ProductservicesService: ProductservicesService) {
-    this.products$ = this.ProductservicesService.getProducts()
+  constructor(private productService: ProductservicesService) {
+    this.products = this.productService.getProducts();
   }
-
-ngOnInit(): void {}
 }

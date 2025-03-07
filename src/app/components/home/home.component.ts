@@ -14,10 +14,10 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements OnInit {
   firstThreeProducts: Product[] = [];
 
-  constructor(private ProductservicesService: ProductservicesService) {}
+  constructor(private productService: ProductservicesService) {}
 
   ngOnInit(): void {
-    this.ProductservicesService.getFirstThreeProducts().subscribe(products => {
+    this.productService.getFirstThreeProducts().subscribe(products => {
       this.firstThreeProducts = products;
     });
   }

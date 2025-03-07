@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { Injectable, signal, WritableSignal } from "@angular/core";
+import { Observable, of } from "rxjs";
 import { Product } from "../interfaces/product.interface";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProductservicesService {
-  private products: Product[] = [
+  private products: WritableSignal<Product[]> = signal([
     {
       id: 1,
       name: "Nike Air Force 1 '07",
@@ -43,62 +43,28 @@ export class ProductservicesService {
       onSale: true,
       image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d4847995-4174-47e6-9535-26694b30c482/W+NSW+TCH+FLC+WR+FZ+HDY+2.png",
     },
-  ];
-  private productsSubject = new BehaviorSubject<Product[]>(this.products);
-  private filteredProductsSubject = new BehaviorSubject<Product[]>([])
+  ]);
 
   deleteProduct(id: number): void {
-    this.products = this.products.filter((p) => p.id !== id);
-    this.productsSubject.next([...this.products]);
+    this.products.set(this.products().filter((p) => p.id !== id));
   }
 
   getProducts(): Observable<Product[]> {
-    return this.productsSubject.asObservable()
+    return of([...this.products()]);
   }
 
   addProduct(product: Product): void {
-    const existingProductIndex = this.products.findIndex((p) => p.id === product.id)
-    if (existingProductIndex !== -1) {
-      // Update existing product
-      this.products[existingProductIndex] = product
-    } else {
-      // Add new product
-      this.products.push(product)
-    }
-    this.updateProducts()
+    this.products.set([
+      ...this.products().filter(p => p.id !== product.id), 
+      product
+    ]);
   }
 
   getProductById(id: number): Product | undefined {
-    return this.products.find((p) => p.id === id)
-  }
-
-  searchProducts(searchTerm: string): void {
-    if (!searchTerm) {
-      this.resetSearch()
-      return
-    }
-
-    const lowercaseSearchTerm = searchTerm.toLowerCase()
-    const filteredProducts = this.products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(lowercaseSearchTerm) ||
-        product.description.toLowerCase().includes(lowercaseSearchTerm) ||
-        product.productType.toLowerCase().includes(lowercaseSearchTerm),
-    )
-
-    this.filteredProductsSubject.next(filteredProducts)
-  }
-
-  resetSearch(): void {
-    this.filteredProductsSubject.next([...this.products])
-  }
-
-  private updateProducts(): void {
-    this.productsSubject.next([...this.products])
-    this.filteredProductsSubject.next([...this.products])
+    return this.products().find((p) => p.id === id);
   }
 
   getFirstThreeProducts(): Observable<Product[]> {
-    return of(this.products.slice(0, 3));
+    return of([...this.products().slice(0, 3)]);
   }
 }
